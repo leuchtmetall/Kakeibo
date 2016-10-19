@@ -5,6 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :name, presence: true
-  validates :short_name, presence: true
+  validates :short_name, length: {is: 1}
 
+  def admin?
+    self.role == 'admin'
+  end
 end
