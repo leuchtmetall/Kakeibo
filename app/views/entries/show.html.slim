@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Month:
+  = @entry.month
+p
+  strong Time:
+  = @entry.time
+p
+  strong Place:
+  = @entry.place
+
+= link_to 'Edit', edit_entry_path(@entry)
+'|
+= link_to 'Back', entries_path

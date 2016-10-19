@@ -1,0 +1,18 @@
+= form_for @entry do |f|
+  - if @entry.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@entry.errors.count, "error")} prohibited this entry from being saved:"
+      ul
+        - @entry.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :month
+    = f.date_select :month
+  .field
+    = f.label :time
+    = f.datetime_select :time
+  .field
+    = f.label :place
+    = f.text_field :place
+  .actions = f.submit

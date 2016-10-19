@@ -2,13 +2,11 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   subject {
-    User.new(name: 'User', short_name: 'U', email: 'text@example.com',
-      password: 'test123', password_confirmation: 'test123', role: 'user')
+    build(:user)
   }
 
-  it "is valid" do
-    expect(subject).to be_valid
-  end
+  it { is_expected.to be_valid }
+  it { is_expected.to_not be_admin }
 
   it "is not valid without a name" do
     subject.name = ""
@@ -33,5 +31,11 @@ RSpec.describe User, type: :model do
     expect(subject.admin?).to be false
     subject.role = "administrator"
     expect(subject.admin?).to be false
+  end
+
+  it "can have accounts associated to it" do
+    expect(subject.accounts).to be_empty
+    subject.accounts << Account.new(name: 'Test')
+    expect(subject.accounts).to_not be_empty
   end
 end

@@ -10,15 +10,72 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161019030235) do
+ActiveRecord::Schema.define(version: 20161019044344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "account_members", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "account_id"
+    t.boolean  "active",     default: true
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["account_id"], name: "index_account_members_on_account_id", using: :btree
+    t.index ["user_id"], name: "index_account_members_on_user_id", using: :btree
+  end
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "amounts", force: :cascade do |t|
+    t.integer  "cost"
+    t.integer  "paid"
+    t.integer  "user_id"
+    t.integer  "entry_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["entry_id"], name: "index_amounts_on_entry_id", using: :btree
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "account_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_categories_on_account_id", using: :btree
+  end
+
+  create_table "entries", force: :cascade do |t|
+    t.integer  "month"
+    t.datetime "time"
+    t.string   "place"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["month"], name: "index_entries_on_month", using: :btree
+    t.index ["time"], name: "index_entries_on_time", using: :btree
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.integer  "entry_id"
+    t.integer  "category_id"
+    t.integer  "amount"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["entry_id"], name: "index_items_on_entry_id", using: :btree
+  end
+
+  create_table "proportions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "category_id"
+    t.integer  "relative_value"
+    t.integer  "absolute_value"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["category_id"], name: "index_proportions_on_category_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
