@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161019044344) do
+ActiveRecord::Schema.define(version: 20161019064718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20161019044344) do
     t.string   "place"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "account_id"
     t.index ["month"], name: "index_entries_on_month", using: :btree
     t.index ["time"], name: "index_entries_on_time", using: :btree
   end

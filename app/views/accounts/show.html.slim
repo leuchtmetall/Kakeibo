@@ -1,9 +1,18 @@
-p#notice = notice
+h1 Details #{@account.name}
+
 
 p
-  strong Name:
-  = @account.name
+	h2 Categories
+	div
+		- @account.categories.each do |category|
+			= category.name
+			= link_to 'Edit', edit_account_category_path(@account, category)
+			= link_to 'Destroy', [@account, category], data: { confirm: 'Are you sure?' }, method: :delete
+	= link_to 'Add Category', new_account_category_path(account_id: @account)
+
 
 = link_to 'Edit', edit_account_path(@account)
 '|
 = link_to 'Back', accounts_path
+
+
