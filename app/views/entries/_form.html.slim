@@ -1,5 +1,5 @@
 = form_for [@account, @entry] do |f|
-  = hidden_field_tag :month, @entry.month
+  = f.hidden_field :month
   - if @entry.errors.any?
     #error_explanation
       h2 = "#{pluralize(@entry.errors.count, "error")} prohibited this entry from being saved:"
@@ -13,4 +13,23 @@
   .field
     = f.label :place
     = f.text_field :place
+
+  h2 Items
+  = f.fields_for :items do |itf|
+    = itf.hidden_field :category_id
+    .field
+      = itf.label :amount, itf.object.category.name
+      = itf.text_field :amount
+
+  h2 Amounts
+  = f.fields_for :amounts do |af|
+    = af.hidden_field :user_id
+    .field
+      span.shortName = af.object.user.short_name
+      = af.label :cost
+      = af.text_field :cost
+      = af.label :paid
+      = af.text_field :paid
+
+
   .actions = f.submit

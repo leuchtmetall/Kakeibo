@@ -2,7 +2,5 @@ h1 Editing entry
 
 == render 'form'
 
-= link_to 'Show', @entry
-'|
-= link_to 'Back', entries_path
+= link_to 'Back', accounts_path(year: @entry.real_year, month: @entry.real_month)
 

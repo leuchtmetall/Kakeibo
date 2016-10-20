@@ -1,4 +1,4 @@
 class Item < ApplicationRecord
-  belongs_to :item
+  belongs_to :entry, inverse_of: :items
   belongs_to :category
 end

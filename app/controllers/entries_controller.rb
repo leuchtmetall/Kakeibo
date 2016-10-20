@@ -27,11 +27,11 @@ class EntriesController < ApplicationController
   # POST /entries
   # POST /entries.json
   def create
-    @entry = current_user.entries.new(entry_params)
+    @entry = @account.entries.new(entry_params)
 
     respond_to do |format|
       if @entry.save
-        format.html { redirect_to @entry, notice: 'Entry was successfully created.' }
+        format.html { redirect_to accounts_path(month: @entry.real_month, year: @entry.real_year), notice: 'Entry was successfully created.' }
         format.json { render :show, status: :created, location: @entry }
       else
         format.html { render :new }
@@ -45,7 +45,8 @@ class EntriesController < ApplicationController
   def update
     respond_to do |format|
       if @entry.update(entry_params)
-        format.html { redirect_to @entry, notice: 'Entry was successfully updated.' }
+        format.html { redirect_to accounts_path(month: @entry.real_month, year: @entry.real_year), notice: 'Entry was successfully created.' }
+        # format.html { redirect_to @entry, notice: 'Entry was successfully updated.' }
         format.json { render :show, status: :ok, location: @entry }
       else
         format.html { render :edit }
@@ -72,11 +73,12 @@ class EntriesController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_entry
-      @entry = current_user.entries.find(params[:id])
+      @entry = @account.entries.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def entry_params
-      params.require(:entry).permit(:time, :place)
+      params.require(:entry).permit(:month, :time, :place, items_attributes: [:id, :category_id, :amount],
+        amounts_attributes: [:id, :cost, :paid, :user_id])
     end
 end

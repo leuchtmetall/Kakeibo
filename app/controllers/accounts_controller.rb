@@ -5,6 +5,8 @@ class AccountsController < ApplicationController
   # GET /accounts
   # GET /accounts.json
   def index
+    @year = params[:year]
+    @month = params[:month]
     @accounts = current_user.accounts
   end
 
