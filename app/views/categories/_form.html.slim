@@ -12,12 +12,8 @@
 
   h2 Proportions
   = f.fields_for :proportions do |pf|
-    h3 = pf.object.user.name
     .field
-      = pf.label :absolute_value
-      = pf.number_field :absolute_value
-    .field
-      = pf.label :relative_value
-      = pf.number_field :relative_value
+      = pf.label :value, pf.object.user.name
+      = pf.text_field :value, pattern: Proportion::VALUE_REGEX
 
   .actions = f.submit

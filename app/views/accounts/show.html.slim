@@ -1,11 +1,15 @@
 h1 Details #{@account.name}
-
+div Users: #{@account.users.map(&:name) * '、'}
 
 p
 	h2 Categories
 	div
 		- @account.categories.each do |category|
 			= category.name
+			- category.proportions.each do |proportion|
+				span.shortName = proportion.user.short_name
+				':
+				= proportion.value
 			= link_to 'Edit', edit_account_category_path(@account, category)
 			= link_to 'Destroy', [@account, category], data: { confirm: 'Are you sure?' }, method: :delete
 	= link_to 'Add Category', new_account_category_path(account_id: @account)
