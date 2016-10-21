@@ -8,11 +8,12 @@ html
 
 	body
 		nav.main
-			= link_to('Home', '/')
-			= link_to('Accounts', accounts_path)
-			/ - if current_user.admin?
-			/ 	= link_to('Users', users_path)
+			div
+				= link_to('Home', '/', {:"data-turbolinks" => "false"})
+				= link_to('Accounts', accounts_path)
+				/ - if current_user.admin?
+				/ 	= link_to('Users', users_path)
 		p#notice = notice
 		p#alert = alert
-		.mainContainer
+		#mainContainer
 			= yield

@@ -35,12 +35,12 @@ class Entry < ApplicationRecord
 
   def item_for_category(category_id)
     @category_hash ||= items.map {|i| [i.category_id, i] }.to_h
-    @category_hash[category_id]
+    @category_hash[category_id] || Item.new
   end
 
   def amount_for_user(user_id)
     @amount_hash ||= amounts.map {|a| [a.user_id, a] }.to_h
-    @amount_hash[user_id]
+    @amount_hash[user_id] || Amount.new
   end
 
 end

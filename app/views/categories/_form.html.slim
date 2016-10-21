@@ -12,6 +12,7 @@
 
   h2 Proportions
   = f.fields_for :proportions do |pf|
+    = pf.hidden_field :user_id
     .field
       = pf.label :value, pf.object.user.name
       = pf.text_field :value, pattern: Proportion::VALUE_REGEX

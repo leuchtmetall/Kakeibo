@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   end
   devise_for :users
 
-  get 'pages/:year/:month', to: 'pages#month', as: 'month'
+  get ':year/:month', to: 'pages#month', as: 'month'
 
   root to: 'pages#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

@@ -4,14 +4,19 @@ div Users: #{@account.users.map(&:name) * '、'}
 p
 	h2 Categories
 	div
-		- @account.categories.each do |category|
-			= category.name
-			- category.proportions.each do |proportion|
-				span.shortName = proportion.user.short_name
-				':
-				= proportion.value
-			= link_to 'Edit', edit_account_category_path(@account, category)
-			= link_to 'Destroy', [@account, category], data: { confirm: 'Are you sure?' }, method: :delete
+		table
+			tr
+				th Name
+				- @account.users.each do |user|
+					th
+						span.shortName = user.short_name
+			- @account.categories.each do |category|
+				tr
+					td = category.name
+					- category.proportions.each do |proportion|
+						td = proportion.value
+					td = link_to 'Edit', edit_account_category_path(@account, category)
+					td = link_to 'Destroy', [@account, category], data: { confirm: 'Are you sure?' }, method: :delete
 	= link_to 'Add Category', new_account_category_path(account_id: @account)
 
 

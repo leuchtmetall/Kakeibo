@@ -1,7 +1,7 @@
 class Category < ApplicationRecord
   belongs_to :account
   has_many :items
-  has_many :proportions, inverse_of: :category
+  has_many :proportions, inverse_of: :category, dependent: :destroy
 
   validates :name, presence: true
 

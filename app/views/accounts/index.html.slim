@@ -3,8 +3,8 @@ h1 #{@year}年#{@month}月
 - @accounts.each do |account|
 	- balance = {}
 	- account.users.each {|user| balance[user] = 0 }
-	div style="border: 1px solid black"
-		div
+	div.accountSummary
+		div.accountHeader
 			h2 = link_to account.name, account
 			= link_to 'Edit', edit_account_path(account)
 			= link_to 'Destroy', account, data: { confirm: 'Are you sure?' }, method: :delete
@@ -27,7 +27,7 @@ h1 #{@year}年#{@month}月
 							span.shortName = user.short_name
 				- account.entries.of_month(@year, @month).each do |entry|
 					tr
-						td = l(entry.time, format: :long)
+						td = l(entry.time)
 						td = entry.place
 						- Category.all.each do |category|
 							td = entry.item_for_category(category.id).amount
@@ -42,3 +42,5 @@ h1 #{@year}年#{@month}月
 		div
 			br
 			= link_to "add", new_account_entry_path(account_id: account.id, year: @year, month: @month)
+
+= link_to 'add account', new_account_path

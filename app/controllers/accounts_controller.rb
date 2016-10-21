@@ -8,6 +8,7 @@ class AccountsController < ApplicationController
     @year = params[:year]
     @month = params[:month]
     @accounts = current_user.accounts
+    render layout: nil
   end
 
   # GET /accounts/1

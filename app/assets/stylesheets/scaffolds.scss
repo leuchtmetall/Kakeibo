@@ -1,14 +1,18 @@
+$primary-color: #333;
+$top-bar-height: 44px;
+
 body {
   background-color: #fff;
-  color: #333;
+  color: $primary-color;
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
   margin: 0px;
+  overflow-x: hidden;
 }
 
-.mainContainer {
-  margin: 33px;
+#mainContainer {
+  margin: 10px 55px;
 }
 
 p, ol, ul, td {
@@ -93,10 +97,15 @@ label {
 }
 
 nav.main {
+  div {
+    padding: 0px 0px 0px 55px;
+    height: $top-bar-height
+  }
   background-color: black;
   font-size: 16px;
+  height: $top-bar-height;
   width: 100%;
-  padding: 0px 0px 0px 33px;
+  z-index: 100;
   a {
     display: inline-block;
     color: white;
@@ -108,8 +117,94 @@ nav.main {
   }
 }
 
+h1 {
+  display: block;
+  text-align: center;
+}
+
 span.shortName {
   border: 1px solid black;
   border-radius: 5px;
   padding: 1px 3px;
+}
+
+a.nextMonth, a.prevMonth {
+  position: fixed;
+  background-color: rgba(200, 200, 200, 0.5);
+  font-size: 40px;
+  height: 100%;
+  top: 0;
+  width: 50px;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(200, 200, 200, 0.7);
+    text-shadow: 0 0 5px #5f5;
+    color: black;
+  }
+  div {
+    background-color: transparent;
+    position: absolute;
+    top: 50%;
+    margin: -50% 0 0 0;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+a.nextMonth {
+  right: 0;
+}
+
+a.prevMonth {
+  left: 0;
+}
+
+div.accountSummary {
+  border: 1px solid black;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 0 0 10px 0;
+  div.accountHeader {
+    a {
+      color: $primary-color;
+      margin: 0 5px;
+      &:hover {
+        background-color: transparent;
+        text-shadow: 0 0 5px #5f5;
+        color: black;
+      }
+    }
+
+    h2 {
+      margin: 0px;
+      padding: 5px 0;
+    }
+    background-color: #eee;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.currentMonth {
+  width: calc(100% - 110px);
+  position: absolute;
+  margin-top: $top-bar-height;
+  top: 0;
+
+  transition-property: left;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+}
+
+.current {
+  left: 55px;
+}
+
+.next {
+  left: 120%;
+}
+.previous {
+  left: -120%;
 }
