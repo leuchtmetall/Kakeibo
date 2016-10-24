@@ -22,6 +22,7 @@ p
 
 = link_to 'Edit', edit_account_path(@account)
 '|
-= link_to 'Back', accounts_path
-
-
+= link_to 'Back', '/'
+br
+br
+= link_to 'Destroy', @account, data: { confirm: 'Are you sure?' }, method: :delete

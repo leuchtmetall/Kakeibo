@@ -1,44 +1,48 @@
 h1 #{@year}年#{@month}月
 
+- categories = Category.all
 - @accounts.each do |account|
+	- account_users = account.users
 	- balance = {}
 	- account.users.each {|user| balance[user] = 0 }
 	div.accountSummary
 		div.accountHeader
 			h2 = link_to account.name, account
-			= link_to 'Edit', edit_account_path(account)
-			= link_to 'Destroy', account, data: { confirm: 'Are you sure?' }, method: :delete
 		div
 			table
 				tr
 					th Date
 					th Place
-					- Category.all.each do |category|
+					- categories.each do |category|
 						th = category.name
-					- account.users.each do |user|
+					- account_users.each do |user|
 						th
 							'Paid / Cost
 							br
 							span.shortName = user.short_name
-					- account.users.each do |user|
+					- account_users.each do |user|
 						th
 							'balance
 							br
 							span.shortName = user.short_name
 				- account.entries.of_month(@year, @month).each do |entry|
 					tr
-						td = l(entry.time)
+						td = l(entry.time, format: :day_and_time)
 						td = entry.place
-						- Category.all.each do |category|
+						- categories.each do |category|
 							td = entry.item_for_category(category.id).amount
-						- account.users.each do |user|
+						- account_users.each do |user|
 							- amount = entry.amount_for_user(user.id)
 							- balance[user] -= amount.cost - amount.paid
-							td #{amount.paid} / #{amount.cost}
-						- account.users.each do |user|
+							td class="#{colorForAmount(amount.paid - amount.cost)}" #{amount.paid} / #{amount.cost}
+						- account_users.each do |user|
 							td = balance[user]
-		        		td = link_to 'Edit', edit_account_entry_path(account, entry)
-		        		td = link_to 'Destroy', [account, entry], data: { confirm: 'Are you sure?' }, method: :delete
+						td = link_to 'Edit', edit_account_entry_path(account, entry)
+						td = link_to 'Destroy', [account, entry], data: { confirm: 'Are you sure?' }, method: :delete
+				tr.sum
+					td colspan="#{2 + categories.size + account_users.size}" &nbsp;
+					- account_users.each do |user|
+						td class="#{brightColorForAmount(balance[user])}" = balance[user]
 		div
 			br
 			= link_to "add", new_account_entry_path(account_id: account.id, year: @year, month: @month)

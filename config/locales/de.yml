@@ -216,4 +216,5 @@ de:
       default: "%A, %d. %B %Y, %H:%M Uhr"
       long: "%A, %d. %B %Y, %H:%M Uhr"
       short: "%d. %B, %H:%M Uhr"
+      day_and_time: "%d., %H:%M"
     pm: nachmittags

@@ -1,5 +1,4 @@
-var ready
-ready = function() {
+$(document).ready(function() {
   var year = Number($('#currentYear').text());
   var month = Number($('#currentMonth').text());
   function nextMonth() {
@@ -18,11 +17,13 @@ ready = function() {
     }
   }
 
-  // load current account data
-  $('div.currentMonth').text("loading...");
-  $.get("/accounts?year=" + year + "&month=" + month, function(data) {
-    $('div.currentMonth.current').html(data);
-  });
+  setTimeout(function() {
+    // load current account data
+    $('div.currentMonth').text("loading...");
+    $.get("/accounts?a=b&year=" + year + "&month=" + month, function(data) {
+      $('div.currentMonth.current').html(data);
+    });
+  }, 100);
 
   $('a.nextMonth').click(function() {
     nextMonth();
@@ -48,7 +49,4 @@ ready = function() {
       newCurrent.html(data);
     });
   });
-};
-
-$(document).ready(ready);
-$(document).on('page:load', ready);
+});

@@ -208,3 +208,26 @@ div.accountSummary {
 .previous {
   left: -120%;
 }
+
+tr.sum {
+  font-weight: bold;
+  td {
+    border-top: 1px solid black;
+  }
+}
+
+.green {
+  color: #090;
+}
+
+.red {
+  color: #a00;
+}
+
+.brightGreen {
+  color: #0c0;
+}
+
+.brightRed {
+  color: #f00;
+}

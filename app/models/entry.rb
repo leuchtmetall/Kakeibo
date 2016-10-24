@@ -7,21 +7,21 @@ class Entry < ApplicationRecord
   accepts_nested_attributes_for :items
 
   default_scope { includes([:items, :amounts]).order('time') }
-  scope :of_month, ->(year, month) { where("month = ?", year.to_i * 12 + month.to_i)}
+  scope :of_month, ->(year, month) { where("month = ?", year.to_i * 12 + month.to_i) }
 
   validates :place, presence: true
 
-  after_initialize do |entry|
+  def init_amounts_and_items
     # initialize amounts for all users of associated account
-    users_without_db_entry = entry.account.users - entry.amounts.map(&:user)
+    users_without_db_entry = self.account.users - self.amounts.map(&:user)
     users_without_db_entry.each do |user|
-      entry.amounts.new(user: user, cost: 0, paid: 0)
+      self.amounts.new(user: user, cost: 0, paid: 0)
     end
 
     # initialize items for all categories of associated account
-    categories_without_db_entry = entry.account.categories - entry.items.map(&:category)
+    categories_without_db_entry = self.account.categories - self.items.map(&:category)
     categories_without_db_entry.each do |category|
-      entry.items.new(category: category, amount: 0)
+      self.items.new(category: category, amount: 0)
     end
   end
 

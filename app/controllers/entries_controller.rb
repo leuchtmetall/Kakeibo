@@ -11,6 +11,7 @@ class EntriesController < ApplicationController
   # GET /entries/new
   def new
     @entry = @account.entries.new
+    @entry.init_amounts_and_items
     year = params[:year].to_i
     month = params[:month].to_i
     if year != 0 && month != 0
@@ -28,7 +29,7 @@ class EntriesController < ApplicationController
   # POST /entries.json
   def create
     @entry = @account.entries.new(entry_params)
-
+    @entry.init_amounts_and_items
     respond_to do |format|
       if @entry.save
         format.html { redirect_to accounts_path(month: @entry.real_month, year: @entry.real_year), notice: 'Entry was successfully created.' }
@@ -74,6 +75,7 @@ class EntriesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_entry
       @entry = @account.entries.find(params[:id])
+      @entry.init_amounts_and_items
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
