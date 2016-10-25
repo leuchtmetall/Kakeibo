@@ -6,8 +6,6 @@ class PagesController < ApplicationController
   end
 
   def month
-    @year = params[:year]
-    @month = params[:month]
     @accounts = current_user.accounts
   end
 end

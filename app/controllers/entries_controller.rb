@@ -59,10 +59,11 @@ class EntriesController < ApplicationController
   # DELETE /entries/1
   # DELETE /entries/1.json
   def destroy
+    month = @entry.real_month
+    year = @entry.real_year
     @entry.destroy
     respond_to do |format|
-      format.html { redirect_to entries_url, notice: 'Entry was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html { redirect_to month_path(month: month, year: year), notice: 'Entry was successfully destroyed.' }
     end
   end
 

@@ -1,7 +1,7 @@
 h1 Details #{@account.name}
 div Users: #{@account.users.map(&:name) * '、'}
 
-p
+div
 	h2 Categories
 	div
 		table
@@ -22,7 +22,7 @@ p
 
 = link_to 'Edit', edit_account_path(@account)
 '|
-= link_to 'Back', '/'
+= link_to 'Back', month_path(year: @year, month: @month)
 br
 br
-= link_to 'Destroy', @account, data: { confirm: 'Are you sure?' }, method: :delete
+= link_to 'Destroy', account_path(@account, month: @month, year: @year), data: { confirm: 'Are you sure?' }, method: :delete

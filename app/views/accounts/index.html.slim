@@ -7,7 +7,7 @@ h1 #{@year}年#{@month}月
 	- account.users.each {|user| balance[user] = 0 }
 	div.accountSummary
 		div.accountHeader
-			h2 = link_to account.name, account
+			h2 = link_to account.name, account_path(account, year: @year, month: @month)
 		div
 			table
 				tr
@@ -47,4 +47,4 @@ h1 #{@year}年#{@month}月
 			br
 			= link_to "add", new_account_entry_path(account_id: account.id, year: @year, month: @month)
 
-= link_to 'add account', new_account_path
+= link_to 'add account', new_account_path(year: @year, month: @month)
