@@ -20,7 +20,7 @@ $(document).ready(function() {
   setTimeout(function() {
     // load current account data
     $('div.currentMonth').text("loading...");
-    $.get("/accounts?a=b&year=" + year + "&month=" + month, function(data) {
+    $.get("/accounts?year=" + year + "&month=" + month, function(data) {
       $('div.currentMonth.current').html(data);
     });
   }, 100);
