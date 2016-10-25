@@ -1,12 +1,7 @@
 class EntriesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_account
-  before_action :set_entry, only: [:show, :edit, :update, :destroy]
-
-  # GET /entries/1
-  # GET /entries/1.json
-  def show
-  end
+  before_action :set_entry, only: [:edit, :update, :destroy]
 
   # GET /entries/new
   def new
@@ -32,11 +27,9 @@ class EntriesController < ApplicationController
     @entry.init_amounts_and_items
     respond_to do |format|
       if @entry.save
-        format.html { redirect_to accounts_path(month: @entry.real_month, year: @entry.real_year), notice: 'Entry was successfully created.' }
-        format.json { render :show, status: :created, location: @entry }
+        format.html { redirect_to month_path(month: @entry.real_month, year: @entry.real_year), notice: 'Entry was successfully created.' }
       else
         format.html { render :new }
-        format.json { render json: @entry.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -46,12 +39,9 @@ class EntriesController < ApplicationController
   def update
     respond_to do |format|
       if @entry.update(entry_params)
-        format.html { redirect_to accounts_path(month: @entry.real_month, year: @entry.real_year), notice: 'Entry was successfully created.' }
-        # format.html { redirect_to @entry, notice: 'Entry was successfully updated.' }
-        format.json { render :show, status: :ok, location: @entry }
+        format.html { redirect_to month_path(month: @entry.real_month, year: @entry.real_year), notice: 'Entry was successfully updated.' }
       else
         format.html { render :edit }
-        format.json { render json: @entry.errors, status: :unprocessable_entity }
       end
     end
   end
