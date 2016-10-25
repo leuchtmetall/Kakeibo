@@ -19,7 +19,10 @@
     = itf.hidden_field :category_id
     .field
       = itf.label :amount, itf.object.category.name
-      = itf.text_field :amount
+      = itf.number_field :amount, "data-amounts": itf.object.category.proportions_json, class: 'amountTextField'
+  div
+    '=
+    span#totalAmount
 
   h2 = Amount.model_name.human(count: 2)
   = f.fields_for :amounts do |af|
@@ -27,9 +30,93 @@
     .field
       span.shortName = af.object.user.short_name
       = af.label :cost
-      = af.text_field :cost
+      = af.number_field :cost, "data-user-id": af.object.user_id, class: 'costTextField'
       = af.label :paid
-      = af.text_field :paid
-
+      = af.number_field :paid, class: 'paidTextField'
+  div
+    = t Amount.human_attribute_name('cost')
+    ':
+    span#totalCost
+  div
+    = t Amount.human_attribute_name('paid')
+    ':
+    span#totalPaid
+  div#remainder
 
   .actions = f.submit
+
+javascript:
+  $(document).ready(function() {
+    // prepare data
+    var amountTextFields = $('.amountTextField');
+    var costTextFieldElements = $('.costTextField');
+    var paidTextFields = $('.paidTextField');
+    amountJsonData = {}
+    var costTextFields = {};
+    var userIds = [];
+    costTextFieldElements.each(function(i, costTextField) {
+      var userId = $(costTextField).data('user-id');
+      costTextFields[userId] = this;
+      userIds.push(userId);
+    });
+    $('.amountTextField').each(function(i, amountTextField) {
+      var jsonString = $(amountTextField).data('amounts');
+      // console.log(jsonString);
+      amountJsonData[amountTextField.id] = jsonString;
+    });
+
+    // calculate individual costs
+    amountTextFields.change(function() {
+      userIds.forEach(function(userId) {
+        var sum = 0;
+        amountTextFields.each(function(j, amountTextField) {
+          var value = Number.parseInt(amountTextField.value);
+          if(value !== 0) {
+            var proportion = amountJsonData[amountTextField.id][userId];
+            if(proportion[proportion.length-1] === "%") {
+              sum += Number.parseInt(amountTextField.value) / 100 * Number.parseInt(proportion)
+            } else {
+              if(Number.parseInt(proportion) < Number.parseInt(amountTextField.value)) {
+                sum += Number.parseInt(proportion)
+                remainder += Number.parseInt(amountTextField.value) - Number.parseInt(proportion);
+              } else {
+                sum += Number.parseInt(amountTextField.value)
+              }
+            }
+          }
+        })
+        costTextFields[userId].value = sum;
+      });
+
+
+    });
+
+    function calculateSums() {
+      var totalAmount = 0;
+      amountTextFields.each(function(i, textField) {
+        totalAmount += Number.parseInt(textField.value);
+      });
+      $('#totalAmount').text(totalAmount);
+
+      var totalCost = 0;
+      costTextFieldElements.each(function(i, textField) {
+        totalCost += Number.parseInt(textField.value);
+      });
+      $('#totalCost').text(totalCost);
+
+      var totalPaid = 0;
+      paidTextFields.each(function(i, textField) {
+        totalPaid += Number.parseInt(textField.value);
+      });
+      $('#totalPaid').text(totalPaid);
+    }
+    amountTextFields.change(calculateSums);
+    costTextFieldElements.change(calculateSums);
+    paidTextFields.change(calculateSums);
+
+
+  });
+
+
+
+

@@ -17,4 +17,9 @@ class Category < ApplicationRecord
     end
   end
 
+  def proportions_json
+    self.proportions.map {|a|
+      [a.user_id, a.value]
+    }.to_h.to_json
+  end
 end
