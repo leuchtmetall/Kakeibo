@@ -46,7 +46,7 @@ class AccountsController < ApplicationController
   # DELETE /accounts/1
   def destroy
     @account.destroy
-    redirect_to month_path(year: @year, month: @month), notice: 'Account was successfully destroyed.' }
+    redirect_to month_path(year: @year, month: @month), notice: 'Account was successfully destroyed.'
   end
 
   private

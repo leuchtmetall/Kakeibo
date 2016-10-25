@@ -45,7 +45,7 @@ class EntriesController < ApplicationController
     month = @entry.real_month
     year = @entry.real_year
     @entry.destroy
-    redirect_to month_path(month: month, year: year), notice: 'Entry was successfully destroyed.' }
+    redirect_to month_path(month: month, year: year), notice: 'Entry was successfully destroyed.'
   end
 
   private
