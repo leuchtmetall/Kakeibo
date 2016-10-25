@@ -31,13 +31,11 @@ pre {
 a {
   color: #000;
 
-  &:visited {
-    color: #666;
-  }
-
   &:hover {
-    color: #fff;
-    background-color: #000;
+    text-shadow: 0 0 5px #5f5;
+  }
+  &[data-method="delete"] {
+    &:hover {text-shadow: 0 0 5px #f00;}
   }
 }
 
@@ -57,8 +55,44 @@ div {
   }
 }
 
+@keyframes disappear {
+     0%  { opacity: 0; }
+    20%  { opacity: 1; top: 0;}
+    80%  { opacity: 1; top: 0;}
+    100% { opacity: 1; top: -100px; }
+}
+
+$flash-width: 360px;
+#notice, #alert {
+  width: $flash-width;
+  position: fixed;
+  margin: 2px 0 2px (-$flash-width / 2);
+  left: 50%;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0;
+  span {
+    line-height: $top-bar-height - 6;
+  }
+  height: $top-bar-height - 6;
+
+  // animation
+  animation-name: disappear;
+  animation-duration: 4s;
+  opacity: 0;
+  top: 0;
+}
+
 #notice {
-  color: green;
+  color: #0a0;
+  background-color: #afa;
+  border: solid #0a0 1px;
+}
+
+#alert {
+  color: #f00;
+  background-color: #fbb;
+  border: solid #f00 1px;
 }
 
 .field_with_errors {
@@ -98,7 +132,7 @@ label {
 
 nav.main {
   div {
-    padding: 0px 0px 0px 55px;
+    padding: 0px 55px 0px 55px;
     height: $top-bar-height
   }
   background-color: black;
@@ -112,7 +146,6 @@ nav.main {
     padding: 12px 12px;
     &:hover {
       background-color: #555;
-      text-shadow: 0 0 5px #5f5;
     }
   }
 }
@@ -138,8 +171,6 @@ a.nextMonth, a.prevMonth {
   cursor: pointer;
   &:hover {
     background-color: rgba(200, 200, 200, 0.7);
-    text-shadow: 0 0 5px #5f5;
-    color: black;
   }
   div {
     background-color: transparent;
@@ -168,16 +199,11 @@ div.accountSummary {
     a {
       color: $primary-color;
       margin: 0 5px;
-      &:hover {
-        background-color: transparent;
-        text-shadow: 0 0 5px #5f5;
-        color: black;
-      }
     }
 
     h2 {
       margin: 0px;
-      padding: 5px 0;
+      padding: 7px 2px;
     }
     background-color: #eee;
   }
@@ -230,4 +256,8 @@ tr.sum {
 
 .brightRed {
   color: #f00;
+}
+
+.right {
+  float: right;
 }
