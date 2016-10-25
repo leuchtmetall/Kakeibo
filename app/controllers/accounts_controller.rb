@@ -3,14 +3,12 @@ class AccountsController < ApplicationController
   before_action :set_account, only: [:show, :edit, :update, :destroy]
 
   # GET /accounts
-  # GET /accounts.json
   def index
     @accounts = current_user.accounts
     render layout: nil
   end
 
   # GET /accounts/1
-  # GET /accounts/1.json
   def show
   end
 
@@ -25,44 +23,30 @@ class AccountsController < ApplicationController
   end
 
   # POST /accounts
-  # POST /accounts.json
   def create
     @account = Account.new(account_params)
     @account.users << current_user
 
-    respond_to do |format|
-      if @account.save
-        format.html { redirect_to @account, notice: 'Account was successfully created.' }
-        format.json { render :show, status: :created, location: @account }
-      else
-        format.html { render :new }
-        format.json { render json: @account.errors, status: :unprocessable_entity }
-      end
+    if @account.save
+      redirect_to @account, notice: 'Account was successfully created.'
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /accounts/1
-  # PATCH/PUT /accounts/1.json
   def update
-    respond_to do |format|
-      if @account.update(account_params)
-        format.html { redirect_to @account, notice: 'Account was successfully updated.' }
-        format.json { render :show, status: :ok, location: @account }
-      else
-        format.html { render :edit }
-        format.json { render json: @account.errors, status: :unprocessable_entity }
-      end
+    if @account.update(account_params)
+      redirect_to @account, notice: 'Account was successfully updated.'
+    else
+      render :edit
     end
   end
 
   # DELETE /accounts/1
-  # DELETE /accounts/1.json
   def destroy
     @account.destroy
-    respond_to do |format|
-      format.html { redirect_to month_path(year: @year, month: @month), notice: 'Account was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to month_path(year: @year, month: @month), notice: 'Account was successfully destroyed.' }
   end
 
   private

@@ -21,40 +21,31 @@ class EntriesController < ApplicationController
   end
 
   # POST /entries
-  # POST /entries.json
   def create
     @entry = @account.entries.new(entry_params)
     @entry.init_amounts_and_items
-    respond_to do |format|
-      if @entry.save
-        format.html { redirect_to month_path(month: @entry.real_month, year: @entry.real_year), notice: 'Entry was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @entry.save
+      redirect_to month_path(month: @entry.real_month, year: @entry.real_year), notice: 'Entry was successfully created.'
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /entries/1
-  # PATCH/PUT /entries/1.json
   def update
-    respond_to do |format|
-      if @entry.update(entry_params)
-        format.html { redirect_to month_path(month: @entry.real_month, year: @entry.real_year), notice: 'Entry was successfully updated.' }
-      else
-        format.html { render :edit }
-      end
+    if @entry.update(entry_params)
+      redirect_to month_path(month: @entry.real_month, year: @entry.real_year), notice: 'Entry was successfully updated.'
+    else
+      render :edit
     end
   end
 
   # DELETE /entries/1
-  # DELETE /entries/1.json
   def destroy
     month = @entry.real_month
     year = @entry.real_year
     @entry.destroy
-    respond_to do |format|
-      format.html { redirect_to month_path(month: month, year: year), notice: 'Entry was successfully destroyed.' }
-    end
+    redirect_to month_path(month: month, year: year), notice: 'Entry was successfully destroyed.' }
   end
 
   private
