@@ -1,8 +1,9 @@
 h1 #{@year}年#{@month}月
 
-- categories = Category.all
+
 - @accounts.each do |account|
 	- account_users = account.users
+	- account_categories = account.categories
 	- balance = {}
 	- account.users.each {|user| balance[user] = 0 }
 	div.accountSummary
@@ -13,7 +14,7 @@ h1 #{@year}年#{@month}月
 				tr
 					th = Entry.human_attribute_name("time")
 					th = Entry.human_attribute_name("place")
-					- categories.each do |category|
+					- account_categories.each do |category|
 						th = category.name
 					- account_users.each do |user|
 						th
@@ -30,7 +31,7 @@ h1 #{@year}年#{@month}月
 					tr
 						td = l(entry.time, format: :day_and_time)
 						td = entry.place
-						- categories.each do |category|
+						- account_categories.each do |category|
 							td = entry.item_for_category(category.id).amount
 						- account_users.each do |user|
 							- amount = entry.amount_for_user(user.id)
@@ -41,7 +42,7 @@ h1 #{@year}年#{@month}月
 						td = link_to t('edit'), edit_account_entry_path(account, entry)
 						td = link_to t('destroy'), [account, entry], data: { confirm: 'Are you sure?' }, method: :delete
 				tr.sum
-					td colspan="#{2 + categories.size + account_users.size}" &nbsp;
+					td colspan="#{2 + account_categories.size + account_users.size}" &nbsp;
 					- account_users.each do |user|
 						td.rightAlign class="#{brightColorForAmount(balance[user])}" = balance[user]
 					td colspan="2" &nbsp;
