@@ -8,12 +8,12 @@ class Category < ApplicationRecord
   default_scope { includes(:proportions) }
   accepts_nested_attributes_for :proportions
 
-  after_initialize do |category|
+  def init_proportions
     # initialize proportions for all users of associated account
-    proportions = category.proportions
-    users_without_db_entry = category.account.users - proportions.map(&:user)
+    proportions = self.proportions
+    users_without_db_entry = self.account.users - proportions.map(&:user)
     users_without_db_entry.each do |user|
-      category.proportions.new(user: user, value: 0)
+      self.proportions.new(user: user, value: 0)
     end
   end
 
