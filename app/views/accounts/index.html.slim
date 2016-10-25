@@ -11,18 +11,19 @@ h1 #{@year}年#{@month}月
 		div
 			table
 				tr
-					th Date
-					th Place
+					th = Entry.human_attribute_name("time")
+					th = Entry.human_attribute_name("place")
 					- categories.each do |category|
 						th = category.name
 					- account_users.each do |user|
 						th
-							'Paid / Cost
+							= Amount.human_attribute_name("paid") + ' / '
+							= Amount.human_attribute_name("cost")
 							br
 							span.shortName = user.short_name
 					- account_users.each do |user|
 						th
-							'balance
+							= Entry.human_attribute_name("balance")
 							br
 							span.shortName = user.short_name
 				- account.entries.of_month(@year, @month).each do |entry|
@@ -36,15 +37,15 @@ h1 #{@year}年#{@month}月
 							- balance[user] -= amount.cost - amount.paid
 							td class="#{colorForAmount(amount.paid - amount.cost)}" #{amount.paid} / #{amount.cost}
 						- account_users.each do |user|
-							td = balance[user]
-						td = link_to 'Edit', edit_account_entry_path(account, entry)
-						td = link_to 'Destroy', [account, entry], data: { confirm: 'Are you sure?' }, method: :delete
+							td.rightAlign = balance[user]
+						td = link_to t('edit'), edit_account_entry_path(account, entry)
+						td = link_to t('destroy'), [account, entry], data: { confirm: 'Are you sure?' }, method: :delete
 				tr.sum
 					td colspan="#{2 + categories.size + account_users.size}" &nbsp;
 					- account_users.each do |user|
-						td class="#{brightColorForAmount(balance[user])}" = balance[user]
+						td.rightAlign class="#{brightColorForAmount(balance[user])}" = balance[user]
+					td colspan="2" &nbsp;
 		div
-			br
-			= link_to "add", new_account_entry_path(account_id: account.id, year: @year, month: @month)
+			= link_to t('add', model: Entry.model_name.human), new_account_entry_path(account_id: account.id, year: @year, month: @month), class: 'bottomLink'
 
-= link_to 'add account', new_account_path(year: @year, month: @month)
+= link_to t('add', model: Account.model_name.human), new_account_path(year: @year, month: @month), class: 'bottomLink'

@@ -14,14 +14,14 @@
     = f.label :place
     = f.text_field :place
 
-  h2 Items
+  h2 = Item.model_name.human(count: 2)
   = f.fields_for :items do |itf|
     = itf.hidden_field :category_id
     .field
       = itf.label :amount, itf.object.category.name
       = itf.text_field :amount
 
-  h2 Amounts
+  h2 = Amount.model_name.human(count: 2)
   = f.fields_for :amounts do |af|
     = af.hidden_field :user_id
     .field

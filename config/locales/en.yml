@@ -1,6 +1,65 @@
 ---
 en:
+  add: Add %{model}
+  edit: Edit
+  destroy: Destroy
+  back: Back
+
+  home: Home
+  login: Log in
+  logout: Log Out
+  logged_in_as: "Logged in as #{username}"
   activerecord:
+    models:
+      account:
+        one: Account
+        other: Accounts
+      amount:
+        one: Amount
+        other: Amounts
+      category:
+        one: Category
+        other: Categories
+      item:
+        one: Item
+        other: Items
+      proportion:
+        one: Proportion
+        other: Proportions
+      user:
+        one: User
+        other: Users
+      entry:
+        one: Entry
+        other: Entries
+    attributes:
+      account:
+        name: Name
+      amount:
+        cost: Cost
+        paid: Paid Amount
+        user: User
+      category:
+        name: Name
+        account: Account
+      item:
+        entry: Entry
+        amount: Amount
+      proportion:
+        user: User
+        category: Category
+        value: Value
+      user:
+        name: Name
+        short_name: Short Name
+        email: Email
+        password: Password
+        password_confirmation: Password Confirmation
+      entry:
+        month: Month
+        time: Time
+        place: Place
+        balance: Balance
     errors:
       messages:
         record_invalid: "Validation failed: %{errors}"

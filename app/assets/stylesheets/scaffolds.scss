@@ -15,38 +15,56 @@ body {
   margin: 10px 55px;
 }
 
+h3 {
+  margin: 5px 0;
+}
+
 p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
-  margin: 33px;
-}
-
-pre {
-  background-color: #eee;
-  padding: 10px;
-  font-size: 11px;
 }
 
 a {
   color: #000;
 
   &:hover {
-    text-shadow: 0 0 5px #5f5;
+    text-shadow: 0 0 10px #5f5;
   }
   &[data-method="delete"] {
-    &:hover {text-shadow: 0 0 5px #f00;}
+    &:hover {text-shadow: 0 0 10px #f00;}
   }
+
+  &.bottomLink {
+    margin: 2px 5px;
+  }
+}
+
+table {
+  border-collapse: collapse;
 }
 
 th {
   padding-bottom: 5px;
 }
 
+tr:nth-child(even) {
+  background-color: #eee;
+}
+
+tr.sum {
+  font-weight: bold;
+
+  td {
+    border-top: 1px solid #888;
+  }
+}
+
 td {
-  padding-bottom: 7px;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding: 5px;
+  &.rightAlign {
+    text-align: right;
+  }
 }
 
 div {
@@ -139,13 +157,20 @@ nav.main {
   font-size: 16px;
   height: $top-bar-height;
   width: 100%;
-  z-index: 100;
   a {
     display: inline-block;
     color: white;
     padding: 12px 12px;
     &:hover {
       background-color: #555;
+    }
+  }
+  span {
+    font-size: 12px;
+    padding: 12px 12px;
+    color: #bbb;
+    a {
+      padding: 0;
     }
   }
 }
@@ -162,6 +187,7 @@ span.shortName {
 }
 
 a.nextMonth, a.prevMonth {
+  z-index: 100;
   position: fixed;
   background-color: rgba(200, 200, 200, 0.5);
   font-size: 40px;
@@ -207,6 +233,9 @@ div.accountSummary {
     }
     background-color: #eee;
   }
+  table {
+    width: 100%;
+  }
 }
 
 .hidden {
@@ -233,13 +262,6 @@ div.accountSummary {
 }
 .previous {
   left: -120%;
-}
-
-tr.sum {
-  font-weight: bold;
-  td {
-    border-top: 1px solid black;
-  }
 }
 
 .green {

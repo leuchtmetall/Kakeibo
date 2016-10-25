@@ -1,6 +1,51 @@
 ---
 ja:
+  add: "%{model}を追加"
+  edit: 編集
+  destroy: 削除
+  back: 戻る
+
+  home: メインページ
+  login: ログイン
+  logout: ログアウト
+  logged_in_as: "%{username}としてログイン"
   activerecord:
+    models:
+      account: 口座
+      amount: 金額
+      category: 分類
+      item: 個条
+      proportion: 比率
+      user: ユーザー
+      entry: 項目
+    attributes:
+      account:
+        name: 名称
+      amount:
+        cost: 費用
+        paid: 払った分
+        user: ユーザー
+      category:
+        name: 名称
+        account: 口座
+      item:
+        entry: 項目
+        amount: 金額
+      proportion:
+        user: ユーザー
+        category: 分類
+        value: 値
+      user:
+        name: ユーザー名
+        short_name: ユーザー名の略
+        email: メール
+        password: パスワード
+        password_confirmation: パスワードの確認
+      entry:
+        month: 月
+        time: 日時
+        place: 場所
+        balance: 残高
     errors:
       messages:
         record_invalid: "バリデーションに失敗しました: %{errors}"

@@ -1,6 +1,64 @@
 ---
 de:
+  add: "%{model} hinzufügen"
+  edit: Bearbeiten
+  destroy: Löschen
+  back: Zurück
+  home: Startseite
+  login: Anmelden
+  logout: Abmelden
+  logged_in_as: "Angemeldet als #{username}"
   activerecord:
+    models:
+      account:
+        one: Konto
+        other: Konten
+      amount:
+        one: Betrag
+        other: Beträge
+      category:
+        one: Kategorie
+        other: Kategorien
+      item:
+        one: Posten
+        other: Posten
+      proportion:
+        one: Proportion
+        other: Proportionen
+      user:
+        one: Nutzer
+        other: Nutzer
+      entry:
+        one: Eintrag
+        other: Einträge
+    attributes:
+      account:
+        name: Name
+      amount:
+        cost: Kosten
+        paid: Gezahlter Betrag
+        user: Nutzer
+      category:
+        name: Name
+        account: Konto
+      item:
+        entry: Eintrag
+        amount: Betrag
+      proportion:
+        user: Nutzer
+        category: Kategorie
+        value: Wert
+      user:
+        name: Name
+        short_name: Kurzname
+        email: E-Mail
+        password: Passwort
+        password_confirmation: Passwortbestätigung
+      entry:
+        month: Monat
+        time: Zeitpunkt
+        place: Ort
+        balance: Stand
     errors:
       messages:
         record_invalid: 'Gültigkeitsprüfung ist fehlgeschlagen: %{errors}'
